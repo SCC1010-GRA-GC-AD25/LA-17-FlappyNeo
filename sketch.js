@@ -30,7 +30,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1000, 512)
+  createCanvas(583, 342)
   noCursor()
 }
 
