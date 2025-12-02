@@ -12,20 +12,19 @@ let wallY = []
 let puntaje = 0
 let puntajeMax = 0
 let recordAnterior = 0
-let musicaRecord
+
 let musicaFondo
 let sonido = true
 
 
 function preload() {
-  // Cargar imágenes con los nombres correctos
+ 
   fondoJuego = loadImage("./images/fondoJuego.jpg")
   fondoInicio = loadImage("./images/fondoInicio.jpg")
   pared = loadImage("./images/pared.png")
   jaeminBird = loadImage("./images/jaeminBird.png")
   
-  // Cargar sonidos
-  musicaRecord = loadSound("./sounds/aplauso.wav")
+ 
   musicaFondo = loadSound("./sounds/musicaFondo.mp3")
 }
 
@@ -41,18 +40,18 @@ function checkCollision() {
   
   // Verificar colisión con cada par de tubos
   for (let i = 0; i < wallX.length; i++) {
-    // Ancho aproximado del tubo
+    // Ancho del tubo
     let tuboWidth = 100
     
- 
+    // Verificar si el pájaro está en el rango horizontal del tubo
     if (posX + birdWidth/2 > wallX[i] - tuboWidth/2 && 
         posX - birdWidth/2 < wallX[i] + tuboWidth/2) {
       
-    
+     
       let espacioSuperior = wallY[i] - 150
       let espacioInferior = wallY[i] + 150
       
-     
+      // Verificar colisión con tubo superior o inferior
       if (posY - birdHeight/2 < espacioSuperior || 
           posY + birdHeight/2 > espacioInferior) {
         return true
@@ -65,11 +64,11 @@ function checkCollision() {
 
 function draw() {
   if (estado === 1) {
-    
+    // JUEGO EN MARCHA
     background(255)
     imageMode(CORNER)
     
-    
+    // Fondo en movimiento (escalado al tamaño del canvas)
     image(fondoJuego, x, 0, width, height)
     image(fondoJuego, x + width, 0, width, height)
     x = x - 5
@@ -86,7 +85,7 @@ function draw() {
       image(pared, wallX[i], wallY[i] - 500)
       image(pared, wallX[i], wallY[i] + 500)
       
-    
+      // Nuevos obstáculos
       if (wallX[i] < -pared.width) {
         wallX[i] = width + 100
         wallY[i] = random(200, 300)
@@ -107,7 +106,7 @@ function draw() {
       estado = 0
     }
 
-    
+    // Despliega personaje (Jaemin Bird)
     imageMode(CENTER)
     image(jaeminBird, posX, posY, 80, 80)
     
@@ -120,13 +119,13 @@ function draw() {
     text("Puntaje: " + puntaje, width / 2, 40)
     
   } else if (estado === 0) {
-    
+    // PANTALLA DE INICIO / GAME OVER
     imageMode(CORNER)
     image(fondoInicio, 0, 0, width, height)
     
     cursor()
     
-   
+    // Textos en la parte derecha (lado negro)
     textAlign(CENTER)
     
     // Puntaje máximo 
@@ -140,16 +139,11 @@ function draw() {
     textSize(32)
     text("Presiona para iniciar", width * 0.75, 240)
     
-    // Reproducir sonido de record
-    if (puntajeMax > recordAnterior) {
-      if (!musicaRecord.isPlaying() && sonido) {
-        musicaRecord.play()
-        sonido = false
+    
       }
     }
-  }
-}
-
+    
+  
 function mousePressed() {
   if (estado === 0) {
     // Iniciar juego
@@ -165,10 +159,7 @@ function mousePressed() {
     puntaje = 0
     sonido = true
     recordAnterior = puntajeMax
-    
-    if (musicaRecord.isPlaying()) {
-      musicaRecord.stop()
-    }
+ 
     musicaFondo.loop()
     noCursor()
   }
