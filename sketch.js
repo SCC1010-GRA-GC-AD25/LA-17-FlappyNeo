@@ -30,7 +30,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(583, 342)
+  createCanvas(800, 600)
   noCursor()
 }
 
@@ -40,14 +40,14 @@ function draw() {
     background(255)
     imageMode(CORNER)
     
-    // Fondo en movimiento
-    image(fondoJuego, x, 0)
-    image(fondoJuego, x + fondoJuego.width, 0)
+    // Fondo en movimiento (escalado al tamaño del canvas)
+    image(fondoJuego, x, 0, width, height)
+    image(fondoJuego, x + width, 0, width, height)
     x = x - 5
     dY = dY + 1
     posY = posY + dY
 
-    if (x <= -fondoJuego.width) {
+    if (x <= -width) {
       x = 0
     }
 
