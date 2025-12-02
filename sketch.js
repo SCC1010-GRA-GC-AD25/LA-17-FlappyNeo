@@ -16,6 +16,7 @@ let musicaRecord
 let musicaFondo
 let sonido = true
 
+
 function preload() {
   // put preload code here
   fondojuego = loadImage("./images/fondojuego00.png")
