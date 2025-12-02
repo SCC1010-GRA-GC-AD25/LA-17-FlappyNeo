@@ -100,7 +100,7 @@ function draw() {
     // Textos en la parte derecha (lado negro)
     textAlign(CENTER)
     
-    // Puntaje máximo (siempre visible)
+    // Puntaje máximo 
     textSize(40)
     fill(255)
     stroke(0)
